@@ -3,6 +3,7 @@ namespace App\Service;
 
 use App\Entity\Trips;
 use App\Repository\TripsRepository;
+
 class TripsService
 {
     private  $tripsRepo;
@@ -12,6 +13,10 @@ class TripsService
     }
     private function calculatePartialAvg(float $delta, int $interval)
     {
+        if($interval === 0)
+        {
+            return 0;
+        }
         return (3600 * $delta)/$interval;
     }
     private function calculateMaxAvg(array $partialAvgSet) : int
@@ -48,13 +53,18 @@ class TripsService
         $rows = [];
         foreach($trips as $trip)
         {
+            $highestAvg = 0;
+            if(count($trip->getTripMeasures()) > 1)
+            {
+                $highestAvg = $this->calculateMaxAvg($this->calculatePartialAvgSpeeds($trip));
+            }
             $rows[] = [
                 $trip->getName(),
                 $this->getTotalDistance($trip),
                 $trip->getMeasureInterval(),
-                $this->calculateMaxAvg($this->calculatePartialAvgSpeeds($trip))
+                $highestAvg
             ];
         }
-        dd($rows);
+        return $rows;
     }
 }

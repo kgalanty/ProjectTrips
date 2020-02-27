@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Project Trips!{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+table, th, td {
+    border: 1px solid black;
+}
+   table{
+    
+    border-collapse: collapse;
+   }
+   th, td {
+  padding: 15px;
+  text-align: left;
+}
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/acheron/projecttrips/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/acheron/projecttrips/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
+<div>
+   <table>
+   <tr>
+   <th>Trip</th>
+   <th>Distance</th>
+   <th>Measure interval</th>
+   <th>avg speed</th>
+   </tr>
+   {% for trip in trips %}
+    <tr>
+        <td>{{ trip[0] }}</td>
+        <td>{{ trip[1] }}</td>
+        <td>{{ trip[2] }}</td>
+        <td>{{ trip[3] }}</td>
+    </tr>
+   {% endfor %}
+   </table>
 </div>
 {% endblock %}
