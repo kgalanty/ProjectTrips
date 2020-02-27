@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
 	{
 		$measure = new TripMeasures();
 		$measure->setDistance($distances);
-		$measure->setTripId($tripEntity);
+		$measure->setTrip($tripEntity);
 		return $measure;
 	}
 	public function load(ObjectManager $manager)
