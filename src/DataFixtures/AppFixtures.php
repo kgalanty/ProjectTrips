@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 class AppFixtures extends Fixture
 {
 	private $tripsStorage = __DIR__.'/../../config/trips.yaml';
-	private function provideInitialData()
+	private function provideInitialData() : array
 	{
 		try
 		{
@@ -27,14 +27,14 @@ class AppFixtures extends Fixture
 			printf('Unable to parse the YAML string: %s', $exception->getMessage());
 		}
 	}
-	private function handleSingleTrip(array $singleTrip) : \App\Entity\Trips
+	private function handleSingleTrip(array $singleTrip) : Trips
 	{
 		$trip = new Trips();
 		$trip->setName($singleTrip['name']);
 		$trip->setMeasureInterval($singleTrip['measure_interval']);
 		return $trip;
 	}
-	private function handleTripMeasure(float $distances, \App\Entity\Trips $tripEntity)
+	private function handleTripMeasure(float $distances, Trips $tripEntity) : TripMeasures
 	{
 		$measure = new TripMeasures();
 		$measure->setDistance($distances);

@@ -20,7 +20,7 @@ class TripMeasures
      * @ORM\ManyToOne(targetEntity="App\Entity\Trips", inversedBy="tripMeasures")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $trip_id;
+    private $trip;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
@@ -32,24 +32,24 @@ class TripMeasures
         return $this->id;
     }
 
-    public function getTripId(): ?Trips
+    public function getTrip(): ?Trips
     {
-        return $this->trip_id;
+        return $this->trip;
     }
 
-    public function setTripId(?Trips $trip_id): self
+    public function setTrip(?Trips $trip): self
     {
-        $this->trip_id = $trip_id;
+        $this->trip = $trip;
 
         return $this;
     }
 
-    public function getDistance(): ?string
+    public function getDistance(): ?float
     {
         return $this->distance;
     }
 
-    public function setDistance(string $distance): self
+    public function setDistance(float $distance): self
     {
         $this->distance = $distance;
 

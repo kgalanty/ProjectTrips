@@ -29,7 +29,8 @@ class Trips
     private $measure_interval;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TripMeasures", mappedBy="trip_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\TripMeasures", mappedBy="trip", orphanRemoval=true)
+     * @ORM\OrderBy({"distance" = "ASC"})
      */
     private $tripMeasures;
 
@@ -79,7 +80,7 @@ class Trips
     {
         if (!$this->tripMeasures->contains($tripMeasure)) {
             $this->tripMeasures[] = $tripMeasure;
-            $tripMeasure->setTripId($this);
+            $tripMeasure->setTrip($this);
         }
 
         return $this;
@@ -90,8 +91,8 @@ class Trips
         if ($this->tripMeasures->contains($tripMeasure)) {
             $this->tripMeasures->removeElement($tripMeasure);
             // set the owning side to null (unless already changed)
-            if ($tripMeasure->getTripId() === $this) {
-                $tripMeasure->setTripId(null);
+            if ($tripMeasure->getTrip() === $this) {
+                $tripMeasure->setTrip(null);
             }
         }
 
